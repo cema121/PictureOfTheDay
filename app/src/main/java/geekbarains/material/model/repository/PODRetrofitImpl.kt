@@ -1,6 +1,7 @@
-package geekbarains.material.ui.picture
+package geekbarains.material.model.repository
 
 import com.google.gson.GsonBuilder
+import geekbarains.material.model.retrofit.PictureOfTheDayAPI
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
