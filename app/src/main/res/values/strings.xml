@@ -13,4 +13,17 @@
     <string name="yesterday">Вчера</string>
     <string name="before_yesterday">Позавчера</string>
     <string name="floatingactionbutton">FloatingActionButton</string>
+    <string name="img_loading">Загрузка картинки</string>
+    <string name="ThemeId">Theme Id</string>
+    <string name="theme">Тема</string>
+    <string name="screen_1">На экран 1</string>
+    <string name="screen_2">На экран 2</string>
+    <string name="chips">ChipGroup</string>
+    <string name="settings_theme_moon">Moon</string>
+    <string name="settings_theme_space">Space</string>
+    <string name="settings_theme_default">Default</string>
+    <string name="selection_theme">Выбор темы</string>
+    <string name="default_theme">Default</string>
+    <string name="moon_theme">Moon</string>
+    <string name="mars_theme">Mars</string>
 </resources>

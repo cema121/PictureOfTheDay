@@ -16,9 +16,9 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import geekbarains.material.R
-import geekbarains.material.view.chips.ChipsFragment
 import geekbarains.material.view.picture.BottomNavigationDrawerFragment
 import geekbarains.material.view.picture.PictureOfTheDayData
+import geekbarains.material.view.settings.SettingsFragment
 import geekbarains.material.viewmodel.PictureOfTheDayViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.text.SimpleDateFormat
@@ -84,7 +84,7 @@ class PictureOfTheDayFragment : Fragment() {
         when (item.itemId) {
             R.id.app_bar_fav -> toast("Favourite")
             R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()
-                ?.add(R.id.container, ChipsFragment())?.addToBackStack(null)?.commit()
+                ?.replace(R.id.container, SettingsFragment())?.addToBackStack(null)?.commit()
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
