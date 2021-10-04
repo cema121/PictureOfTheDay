@@ -1,6 +1,6 @@
-package geekbarains.material.model.retrofit
+package geekbarains.material.model.retrofit.i
 
-import geekbarains.material.model.retrofit.epic.EPICServerResponseData
+import geekbarains.material.model.retrofit.response.EPICServerResponseData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

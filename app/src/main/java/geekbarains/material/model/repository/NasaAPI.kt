@@ -1,8 +1,8 @@
 package geekbarains.material.model.repository
 
-import geekbarains.material.model.retrofit.APODServerResponseData
-import geekbarains.material.model.retrofit.epic.EPICServerResponseData
-import geekbarains.material.model.retrofit.mars.MarsServerResponseData
+import geekbarains.material.model.retrofit.response.APODServerResponseData
+import geekbarains.material.model.retrofit.response.EPICServerResponseData
+import geekbarains.material.model.retrofit.response.MarsServerResponseData
 import retrofit2.Callback
 
 interface NasaAPI {
@@ -23,5 +23,4 @@ interface NasaAPI {
         camera: String,
         callback: Callback<MarsServerResponseData>,
     )
-
 }

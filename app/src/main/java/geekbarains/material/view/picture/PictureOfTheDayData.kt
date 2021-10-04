@@ -1,6 +1,6 @@
 package geekbarains.material.view.picture
 
-import geekbarains.material.model.retrofit.APODServerResponseData
+import geekbarains.material.model.retrofit.response.APODServerResponseData
 
 sealed class PictureOfTheDayData {
     data class Success(val serverResponseData: APODServerResponseData) : PictureOfTheDayData()

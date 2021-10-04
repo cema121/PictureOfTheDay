@@ -7,12 +7,11 @@ import geekbarains.material.App
 import geekbarains.material.BuildConfig
 import geekbarains.material.R
 import geekbarains.material.model.AppState
-import geekbarains.material.model.repository.NasaAPI
 import geekbarains.material.model.repository.NasaAPIImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import geekbarains.material.model.retrofit.APODServerResponseData
+import geekbarains.material.model.retrofit.response.APODServerResponseData
 
 class MainFragmentViewModel(
     private val liveDataForViewToObserve: MutableLiveData<AppState> = MutableLiveData(),
@@ -33,7 +32,7 @@ class MainFragmentViewModel(
         ) {
             if (response.isSuccessful && response.body() != null) {
                 liveDataForViewToObserve.value =
-                    AppState.Success(response.body()!!)
+                    AppState.SuccessAPOD(response.body()!!)
             } else {
                 val message = response.message()
                 if (message.isNullOrEmpty()) {

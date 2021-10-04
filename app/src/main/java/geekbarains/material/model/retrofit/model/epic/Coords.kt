@@ -1,4 +1,4 @@
-package geekbarains.material.model.retrofit.epic
+package geekbarains.material.model.retrofit.model.epic
 
 data class Coords(
     val attitude_quaternions: AttitudeQuaternionsX,

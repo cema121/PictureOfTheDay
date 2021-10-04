@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.chip.Chip
 import geekbarains.material.R
 import geekbarains.material.model.Settings
-import kotlinx.android.synthetic.main.fragment_chips.*
-import kotlinx.android.synthetic.main.fragment_chips.chipGroup
+import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.chipGroup
 import geekbarains.material.util.SharedPref
 
 class SettingsFragment : Fragment() {
@@ -22,7 +22,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         checkTheme = true
-        return inflater.inflate(R.layout.fragment_chips, container, false)
+        return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

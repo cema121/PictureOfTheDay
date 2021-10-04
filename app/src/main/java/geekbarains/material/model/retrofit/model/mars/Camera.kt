@@ -1,4 +1,4 @@
-package geekbarains.material.model.retrofit.mars
+package geekbarains.material.model.retrofit.model.mars
 
 data class Camera(
     val full_name: String,

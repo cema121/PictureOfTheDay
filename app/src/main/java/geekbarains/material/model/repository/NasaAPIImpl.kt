@@ -9,12 +9,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import geekbarains.material.model.retrofit.APODServerResponseData
-import geekbarains.material.model.retrofit.RetroFitAPODInterface
-import geekbarains.material.model.retrofit.RetroFitEPICInterface
-import geekbarains.material.model.retrofit.RetroFitMarsInterface
-import geekbarains.material.model.retrofit.epic.EPICServerResponseData
-import geekbarains.material.model.retrofit.mars.MarsServerResponseData
+import geekbarains.material.model.retrofit.response.APODServerResponseData
+import geekbarains.material.model.retrofit.i.RetroFitAPODInterface
+import geekbarains.material.model.retrofit.i.RetroFitEPICInterface
+import geekbarains.material.model.retrofit.i.RetroFitMarsInterface
+import geekbarains.material.model.retrofit.response.EPICServerResponseData
+import geekbarains.material.model.retrofit.response.MarsServerResponseData
 import java.io.IOException
 
 class NasaAPIImpl : NasaAPI {

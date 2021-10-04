@@ -29,4 +29,5 @@
     <color name="color_yellow">#FFFF00</color>
     <color name="moon_bg">#A5A5A5</color>
     <color name="Mars">#DB8E89</color>
+    <color name="color_gray_light">#c3c3c3</color>
 </resources>

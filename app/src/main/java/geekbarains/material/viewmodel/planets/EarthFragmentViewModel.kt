@@ -10,9 +10,8 @@ import retrofit2.Response
 import geekbarains.material.BuildConfig
 import geekbarains.material.R
 import geekbarains.material.model.AppState
-import geekbarains.material.model.repository.NasaAPI
 import geekbarains.material.model.repository.NasaAPIImpl
-import geekbarains.material.model.retrofit.epic.EPICServerResponseData
+import geekbarains.material.model.retrofit.response.EPICServerResponseData
 
 class EarthFragmentViewModel(
     private val liveDataForViewToObserve: MutableLiveData<AppState> = MutableLiveData(),

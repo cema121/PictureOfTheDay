@@ -28,10 +28,6 @@ class PlanetsFragment : Fragment() {
         return inflater.inflate(R.layout.planets_fragment, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -1,4 +1,4 @@
-package geekbarains.material.model.retrofit
+package geekbarains.material.model.retrofit.response
 
 import com.google.gson.annotations.SerializedName
 
