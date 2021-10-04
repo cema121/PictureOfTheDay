@@ -2,38 +2,41 @@ package geekbarains.material.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import geekbarains.material.R
+import geekbarains.material.util.SharedPref
+
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var navController: NavController
+
+    private fun constToStyle(const: Int): Int {
+        return when (const) {
+            0 -> R.style.AppTheme_MarsTheme
+            1 -> R.style.AppTheme_MoonTheme
+            2 -> R.style.AppTheme
+            else -> 0
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setTheme(ThemeHolder.theme)
-
+        val settings = SharedPref(this).loadSettings()
+        setTheme(constToStyle(settings.themeId))
         setContentView(R.layout.main_activity)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, PictureOfTheDayFragment.newInstance())
-                .commitNow()
-        }
-    }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(KEY_CURRENT_THEME,ThemeHolder.theme)
-    }
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+        navController = navHostFragment.navController
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        ThemeHolder.theme = savedInstanceState.getInt(KEY_CURRENT_THEME)
-    }
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNavigationView.setupWithNavController(navController)
 
-    companion object {
-        const val KEY_CURRENT_THEME = "current_theme"
-    }
-
-    object ThemeHolder {
-        var theme = R.style.AppTheme_MoonTheme
+        bottomNavigationView.setupWithNavController(navController)
     }
 }

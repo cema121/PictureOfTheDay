@@ -6,12 +6,7 @@
     <string name="favourite">favourite</string>
     <string name="settings">settings</string>
     <string name="search">Search</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="today">Сегодня</string>
-    <string name="yesterday">Вчера</string>
-    <string name="before_yesterday">Позавчера</string>
     <string name="floatingactionbutton">FloatingActionButton</string>
     <string name="img_loading">Загрузка картинки</string>
     <string name="ThemeId">Theme Id</string>
@@ -26,4 +21,24 @@
     <string name="default_theme">Default</string>
     <string name="moon_theme">Moon</string>
     <string name="mars_theme">Mars</string>
+    <string name="earth">Earth</string>
+    <string name="mars">Mars</string>
+    <string name="weather">Weather</string>
+    <string name="two_yesterday">Позовчерашнее</string>
+    <string name="yesterday">Вчерашнее</string>
+    <string name="today">Сегодняшнее</string>
+    <string name="blankAPIKey">You need API key</string>
+    <string name="undefError">Unidentified error</string>
+    <string name="dateFormat">yyyy-MM-dd</string>
+    <string name="dateFormatYear">yyyy</string>
+    <string name="dateFormatMonth">MM</string>
+    <string name="dateFormatDay">dd</string>
+    <string name="emptyLink">Link is empty</string>
+    <string name="Settings">Настройки</string>
+    <string name="Earth">Замля</string>
+    <string name="Planets">Планеты</string>
+    <string name="TPOD">Картинка дня</string>
+    <string name="Mars">Марс</string>
+    <string name="next">next</string>
+    <string name="prev">previous</string>
 </resources>

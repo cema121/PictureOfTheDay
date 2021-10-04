@@ -2,7 +2,7 @@ package geekbarains.material.model.retrofit
 
 import com.google.gson.annotations.SerializedName
 
-data class PODServerResponseData(
+data class APODServerResponseData(
     @field:SerializedName("copyright") val copyright: String?,
     @field:SerializedName("date") val date: String?,
     @field:SerializedName("explanation") val explanation: String?,

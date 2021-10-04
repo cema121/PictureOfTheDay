@@ -6,6 +6,52 @@
     android:background="#FFFFFF"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Тема"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/image_view"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_layout"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="Марс"
+                android:text="Марс" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEarth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="Земля"
+                android:text="Земля" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMoon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:tag="Луна"
+                android:text="Луна" />
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +63,6 @@
             android:text="Default" />
 
         <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Entry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Entry" />
@@ -64,8 +109,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chip icon"
-            app:iconStartPadding="10dp"
-            app:chipIcon="@drawable/ic_archive" />
+            app:chipIcon="@drawable/ic_archive"
+            app:iconStartPadding="10dp" />
     </LinearLayout>
 
     <com.google.android.material.chip.ChipGroup
