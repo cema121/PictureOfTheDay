@@ -27,9 +27,10 @@
                 app:endIconDrawable="@drawable/ic_wikipedia"
                 app:endIconMode="custom"
                 app:helperText="@string/wiki_helper_text"
-                app:layout_constraintBottom_toTopOf="@+id/image_view"
+                app:layout_constraintBottom_toTopOf="@+id/dayChipGroup"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_edit_text"
@@ -38,6 +39,37 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/dayChipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/image_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/before_yesterday" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yesterday" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/today" />
+
+            </com.google.android.material.chip.ChipGroup>
+
             <geekbarains.material.util.EquilateralImageView
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
@@ -45,10 +77,10 @@
                 android:layout_gravity="center"
                 android:contentDescription="@string/photo_of_the_day_stub"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dayChipGroup"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -72,6 +104,7 @@
         android:backgroundTint="@color/colorAccent"
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_plus_fab"
-        app:tint="#FFFFFF" />
+        app:tint="#FFFFFF"
+        android:contentDescription="@string/floatingactionbutton" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

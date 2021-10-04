@@ -1,4 +1,4 @@
-package geekbarains.material.ui.chips
+package geekbarains.material.view.chips
 
 import android.os.Bundle
 import android.view.LayoutInflater

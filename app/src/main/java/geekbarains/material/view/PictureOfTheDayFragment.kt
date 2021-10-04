@@ -1,35 +1,38 @@
-package geekbarains.material.ui.picture
+package geekbarains.material.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import coil.api.load
+import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
 import geekbarains.material.R
-import geekbarains.material.ui.MainActivity
-import geekbarains.material.ui.chips.ChipsFragment
+import geekbarains.material.view.chips.ChipsFragment
+import geekbarains.material.view.picture.BottomNavigationDrawerFragment
+import geekbarains.material.view.picture.PictureOfTheDayData
+import geekbarains.material.viewmodel.PictureOfTheDayViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProviders.of(this).get(PictureOfTheDayViewModel::class.java)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.getData()
-            .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
-    }
+    private lateinit var mainFragmentView: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,9 +41,32 @@ class PictureOfTheDayFragment : Fragment() {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+
+        viewModel.getData(null).observe(viewLifecycleOwner) { renderData(it) }
+
+        mainFragmentView = view
+
+        dayChipGroup.setOnCheckedChangeListener { dayChipGroup, position ->
+            dayChipGroup.findViewById<Chip>(position)?.let {
+                val sdf = SimpleDateFormat("yyyy-MM-dd")
+                val cal = Calendar.getInstance()
+
+                when (position) {
+                    1 -> cal.add(Calendar.DAY_OF_YEAR, -2)
+                    2 -> cal.add(Calendar.DAY_OF_YEAR, -1)
+                    3 -> cal.add(Calendar.DAY_OF_YEAR, 0)
+                }
+                val itemDate: String? = sdf.format(cal.time)
+
+                viewModel.getData(itemDate)
+                    .observe(viewLifecycleOwner) { renderData(it) }
+            }
+        }
+
         input_layout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
@@ -57,7 +83,8 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_fav -> toast("Favourite")
-            R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()?.add(R.id.container, ChipsFragment())?.addToBackStack(null)?.commit()
+            R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()
+                ?.add(R.id.container, ChipsFragment())?.addToBackStack(null)?.commit()
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
@@ -71,24 +98,34 @@ class PictureOfTheDayFragment : Fragment() {
         when (data) {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverResponseData
-                val url = serverResponseData.url
+                val url: String? = if (serverResponseData.mediaType == "image") {
+                    serverResponseData.url
+                } else {
+                    serverResponseData.thumbs
+                }
+                val bottomSheetContainer = mainFragmentView.findViewById(R.id.bottom_sheet_container) as View
                 if (url.isNullOrEmpty()) {
-                    //showError("Сообщение, что ссылка пустая")
+                    bottomSheetContainer.visibility = View.GONE
                     toast("Link is empty")
                 } else {
-                    //showSuccess()
                     image_view.load(url) {
                         lifecycle(this@PictureOfTheDayFragment)
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
                     }
+                    bottomSheetContainer.visibility = View.VISIBLE
+
+                    val header = bottomSheetContainer.findViewById<TextView>(R.id.bottom_sheet_description_header)
+                    header.text = serverResponseData.title
+
+                    val body = bottomSheetContainer.findViewById<TextView>(R.id.bottom_sheet_description)
+                    body.text = serverResponseData.explanation
                 }
             }
             is PictureOfTheDayData.Loading -> {
                 //showLoading()
             }
             is PictureOfTheDayData.Error -> {
-                //showError(data.error.message)
                 toast(data.error.message)
             }
         }

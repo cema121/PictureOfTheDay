@@ -1,4 +1,4 @@
-package geekbarains.material.ui.picture
+package geekbarains.material.model.retrofit
 
 import com.google.gson.annotations.SerializedName
 
@@ -9,5 +9,6 @@ data class PODServerResponseData(
     @field:SerializedName("media_type") val mediaType: String?,
     @field:SerializedName("title") val title: String?,
     @field:SerializedName("url") val url: String?,
-    @field:SerializedName("hdurl") val hdurl: String?
+    @field:SerializedName("hdurl") val hdurl: String?,
+    @field:SerializedName("thumbnail_url") val thumbs: String?
 )
