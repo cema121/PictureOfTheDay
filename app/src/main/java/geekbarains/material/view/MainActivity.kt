@@ -8,9 +8,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import geekbarains.material.R
 import geekbarains.material.util.SharedPref
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 

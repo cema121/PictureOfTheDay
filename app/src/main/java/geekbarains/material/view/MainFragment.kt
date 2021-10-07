@@ -1,13 +1,19 @@
 package geekbarains.material.view
 
 import android.content.Intent
+import android.graphics.Canvas
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.view.*
 import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -39,6 +45,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val canvas: Canvas
 
         webView.webViewClient = MyWebViewClient()
         webView.settings.javaScriptEnabled = true
@@ -114,6 +122,42 @@ class MainFragment : Fragment() {
                 } else {
                     header.text = serverResponseData.title
                     description.text = serverResponseData.explanation
+
+                    val spannableString = SpannableString(serverResponseData.explanation)
+
+                    val nasaStr = "NASA"
+                    var nasaStrItem = 0
+                    var nasaStrItemColor = false
+                    serverResponseData.explanation?.let {
+                        for (i in it.toCharArray().indices) {
+                            if (it.toCharArray()[i]
+                                    .uppercaseChar() == nasaStr
+                                    .toCharArray()[nasaStrItem]
+                                    .uppercaseChar()
+                            ) {
+
+                                if (nasaStrItem < 3) {
+                                    nasaStrItem++
+                                } else {
+                                    nasaStrItem = 0
+                                    nasaStrItemColor = !nasaStrItemColor
+                                }
+                                val itemColor = if (nasaStrItemColor) {
+                                    Color.CYAN
+                                } else {
+                                    Color.RED
+                                }
+                                spannableString.setSpan(
+                                    BackgroundColorSpan(itemColor),
+                                    i,
+                                    i + 1,
+                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                                )
+
+                                description.setText(spannableString, TextView.BufferType.SPANNABLE)
+                            }
+                        }
+                    }
                 }
             }
             is AppState.Loading -> {
