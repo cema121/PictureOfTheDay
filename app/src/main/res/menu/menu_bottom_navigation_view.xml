@@ -11,6 +11,11 @@
         android:title="@string/Planets" />
 
     <item
+        android:id="@+id/navigation_notes"
+        android:icon="@drawable/ic_sticky"
+        android:title="@string/notes" />
+
+    <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_system"
         android:title="@string/Settings" />

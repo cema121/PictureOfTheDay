@@ -6,6 +6,7 @@
 
     <include app:graph="@navigation/navigation_main"/>
     <include app:graph="@navigation/navigation_planets"/>
+    <include app:graph="@navigation/navigation_notes"/>
     <include app:graph="@navigation/navigation_settings"/>
 
 </navigation>

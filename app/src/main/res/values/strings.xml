@@ -45,4 +45,6 @@
     <string name="fab">FAB</string>
     <string name="itemImage">Изображение %1$d из %2$d</string>
     <string name="itemImageDate">Дата снимка: %1$s</string>
+    <string name="enter_text">Введите слова для поиска</string>
+    <string name="notes">Заметки</string>
 </resources>

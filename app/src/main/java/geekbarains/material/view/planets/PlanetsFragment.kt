@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
-import kotlinx.android.synthetic.main.planets_fragment.*
+import kotlinx.android.synthetic.main.fragment_planets.*
 import geekbarains.material.R
 import geekbarains.material.util.ZoomOutPageTransformer
 
@@ -25,7 +25,7 @@ class PlanetsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return inflater.inflate(R.layout.planets_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_planets, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

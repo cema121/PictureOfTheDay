@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph"
         tools:ignore="FragmentTagUsage"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/fragment_main" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"

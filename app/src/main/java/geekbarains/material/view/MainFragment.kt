@@ -8,16 +8,14 @@ import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import geekbarains.material.Constant.MEDIA_TYPE_IMAGE
 import geekbarains.material.Constant.WIKI_URL
 import geekbarains.material.R
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import geekbarains.material.Constant
 import geekbarains.material.model.AppState
 import geekbarains.material.util.OnSwipeTouchListener
@@ -36,7 +34,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        return inflater.inflate(R.layout.main_fragment_start, container, false)
+        return inflater.inflate(R.layout.fragment_main_start, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
