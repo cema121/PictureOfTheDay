@@ -5,15 +5,16 @@
     style="@style/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="?attr/colorPrimary"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/main_appbar"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
+        android:backgroundTint="?attr/colorPrimary"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/main_collapsing"
@@ -38,7 +39,6 @@
                     android:id="@+id/image_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:contentDescription="@string/photo_of_the_day_stub"
                     app:srcCompat="@drawable/ic_no_photo_vector" />
 
@@ -53,6 +53,7 @@
                 android:id="@+id/main_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:backgroundTint="?attr/colorPrimary"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -61,6 +62,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="?attr/colorPrimary"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,6 +74,7 @@
                 android:id="@+id/chipGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:tag="chipGroup"
                 app:layout_constraintBottom_toTopOf="@+id/header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,22 +82,28 @@
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_two_yesterday"
                     style="@style/ChipChoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="two_yesterday"
                     android:text="@string/two_yesterday" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_yesterday"
                     style="@style/ChipChoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="yesterday"
                     android:text="@string/yesterday" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_today"
                     style="@style/ChipChoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:tag="today"
                     android:text="@string/today" />
             </com.google.android.material.chip.ChipGroup>
 
@@ -106,13 +115,13 @@
                 app:layout_constraintBottom_toTopOf="@+id/description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chipGroup"
-                tools:text="smd;lmsdkl;ngklsdn" />
+                app:layout_constraintTop_toBottomOf="@+id/chipGroup"/>
 
             <androidx.constraintlayout.motion.widget.MotionLayout
                 android:id="@+id/motionLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:backgroundTint="?attr/colorPrimary"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 app:layoutDescription="@xml/fragment_main_scene"
@@ -163,8 +172,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/header"
-                tools:text="smd;lmsdkl;ngklsdngls asklfn lsdfwefwfwefwefwefwe;sknf skl;nfskl;f l;skdn;sga;ld" />
+                app:layout_constraintTop_toBottomOf="@+id/header"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -172,7 +180,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:contentDescription="FAB"
+        android:contentDescription="@string/fab"
         android:src="@drawable/ic_comment_24"
         app:layout_anchor="@id/main_appbar"
         app:layout_anchorGravity="bottom|right|end" />

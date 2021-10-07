@@ -32,8 +32,6 @@ class MainFragment : Fragment() {
         ViewModelProvider(this).get(MainFragmentViewModel::class.java)
     }
 
-    private lateinit var mainFragmentView: View
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -47,7 +45,7 @@ class MainFragment : Fragment() {
         webView.webViewClient = MyWebViewClient()
         webView.settings.javaScriptEnabled = true
 
-        viewModel.getData(null).observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getData(null).observe(viewLifecycleOwner) { appState -> renderData(appState) }
 
         wiki_button.setOnTouchListener(object : OnSwipeTouchListener(requireActivity()) {
             override fun onSwipeLeft() {
@@ -61,22 +59,22 @@ class MainFragment : Fragment() {
             }
         })
 
-        mainFragmentView = view
+        chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            group.findViewById<Chip>(checkedId)?.let {
 
-        chipGroup.setOnCheckedChangeListener { chipGroup, position ->
-            chipGroup.findViewById<Chip>(position)?.let {
                 val sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
+                sdf.timeZone = TimeZone.getTimeZone(Constant.NASA_TIME_ZONE)
                 val cal = Calendar.getInstance(TimeZone.getTimeZone(Constant.NASA_TIME_ZONE))
 
-                when (position) {
-                    1 -> cal.add(Calendar.DAY_OF_YEAR, -2)
-                    2 -> cal.add(Calendar.DAY_OF_YEAR, -1)
-                    3 -> cal.add(Calendar.DAY_OF_YEAR, 0)
+                when (it.text) {
+                    resources.getString(R.string.two_yesterday) -> cal.add(Calendar.DAY_OF_YEAR, -2)
+                    resources.getString(R.string.yesterday) -> cal.add(Calendar.DAY_OF_YEAR, -1)
+                    resources.getString(R.string.today) -> cal.add(Calendar.DAY_OF_YEAR, 0)
                 }
                 val itemDate: String? = sdf.format(cal.time)
 
                 viewModel.getData(itemDate)
-                    .observe(viewLifecycleOwner, { renderData(it) })
+                    .observe(viewLifecycleOwner) { appState -> renderData(appState) }
             }
         }
 

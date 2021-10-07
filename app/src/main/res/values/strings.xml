@@ -24,7 +24,7 @@
     <string name="earth">Earth</string>
     <string name="mars">Mars</string>
     <string name="weather">Weather</string>
-    <string name="two_yesterday">Позовчерашнее</string>
+    <string name="two_yesterday">Позавчерашнее</string>
     <string name="yesterday">Вчерашнее</string>
     <string name="today">Сегодняшнее</string>
     <string name="blankAPIKey">You need API key</string>
@@ -39,6 +39,10 @@
     <string name="Planets">Планеты</string>
     <string name="TPOD">Картинка дня</string>
     <string name="Mars">Марс</string>
-    <string name="next">next</string>
-    <string name="prev">previous</string>
+    <string name="next">Следующее</string>
+    <string name="prev">Предыдущее</string>
+    <string name="Moon">Луна</string>
+    <string name="fab">FAB</string>
+    <string name="itemImage">Изображение %1$d из %2$d</string>
+    <string name="itemImageDate">Дата снимка: %1$s</string>
 </resources>
