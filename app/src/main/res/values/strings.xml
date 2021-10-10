@@ -47,4 +47,12 @@
     <string name="itemImageDate">Дата снимка: %1$s</string>
     <string name="enter_text">Введите слова для поиска</string>
     <string name="notes">Заметки</string>
+    <string name="buttonNext"><![CDATA[>>]]></string>
+    <string name="buttonPrev"><![CDATA[<<]]></string>
+    <string name="share">Поделиться</string>
+    <string name="button">Кнопка-заглушка</string>
+    <string name="tryText">Попытка получить фото от: %1$s</string>
+    <string name="photo_from_mars">Photo from Mars</string>
+    <string name="swipe_indicator_active">swipe_indicator_active</string>
+    <string name="swipe_indicator_passive">swipe_indicator_passive</string>
 </resources>

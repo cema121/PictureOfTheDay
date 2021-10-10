@@ -1,7 +1,6 @@
 package geekbarains.material.view
 
 import android.content.Intent
-import android.graphics.Canvas
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -18,15 +17,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.chip.Chip
+import geekbarains.material.Constant
 import geekbarains.material.Constant.MEDIA_TYPE_IMAGE
 import geekbarains.material.Constant.WIKI_URL
 import geekbarains.material.R
-import kotlinx.android.synthetic.main.fragment_main.*
-import geekbarains.material.Constant
 import geekbarains.material.model.AppState
 import geekbarains.material.util.OnSwipeTouchListener
 import geekbarains.material.util.toast
 import geekbarains.material.viewmodel.MainFragmentViewModel
+import kotlinx.android.synthetic.main.fragment_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,8 +44,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val canvas: Canvas
 
         webView.webViewClient = MyWebViewClient()
         webView.settings.javaScriptEnabled = true
@@ -125,28 +122,10 @@ class MainFragment : Fragment() {
 
                     val spannableString = SpannableString(serverResponseData.explanation)
 
-                    val nasaStr = "NASA"
-                    var nasaStrItem = 0
-                    var nasaStrItemColor = false
                     serverResponseData.explanation?.let {
                         for (i in it.toCharArray().indices) {
-                            if (it.toCharArray()[i]
-                                    .uppercaseChar() == nasaStr
-                                    .toCharArray()[nasaStrItem]
-                                    .uppercaseChar()
-                            ) {
-
-                                if (nasaStrItem < 3) {
-                                    nasaStrItem++
-                                } else {
-                                    nasaStrItem = 0
-                                    nasaStrItemColor = !nasaStrItemColor
-                                }
-                                val itemColor = if (nasaStrItemColor) {
-                                    Color.CYAN
-                                } else {
-                                    Color.RED
-                                }
+                            if ("0123456789".contains(it.toCharArray()[i].uppercaseChar())) {
+                                val itemColor = Color.RED
                                 spannableString.setSpan(
                                     BackgroundColorSpan(itemColor),
                                     i,

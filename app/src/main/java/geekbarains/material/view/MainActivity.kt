@@ -8,10 +8,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import geekbarains.material.R
 import geekbarains.material.util.SharedPref
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-
 
 open class MainActivity : AppCompatActivity() {
 
@@ -27,6 +23,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
 
         val settings = SharedPref(this).loadSettings()

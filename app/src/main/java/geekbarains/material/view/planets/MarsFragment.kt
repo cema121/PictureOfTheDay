@@ -3,21 +3,25 @@ package geekbarains.material.view.planets
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
-import android.transition.ChangeBounds
-import android.transition.ChangeImageTransform
-import android.transition.TransitionManager
-import android.transition.TransitionSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.load
+import com.bumptech.glide.Glide
 import geekbarains.material.BuildConfig
-import geekbarains.material.Constant
-import kotlinx.android.synthetic.main.fragment_mars.*
 import geekbarains.material.Constant.NASA_TIME_ZONE
 import geekbarains.material.Constant.SIGNAL_ARRIVAL_TIME_FROM_MARS
 import geekbarains.material.R
@@ -26,6 +30,13 @@ import geekbarains.material.model.retrofit.response.MarsServerResponseData
 import geekbarains.material.model.rover.Rover
 import geekbarains.material.util.toast
 import geekbarains.material.viewmodel.planets.MarsFragmentViewModel
+import kotlinx.android.synthetic.main.fragment_mars.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,8 +44,9 @@ class MarsFragment : Fragment() {
 
     private var isExpanded = false
     private var itemImage = 0
-    private var earthDayToPhoto = 0
+    private var marsDayToPhoto = 0
     private lateinit var serverResponseData: MarsServerResponseData
+    private lateinit var sdf: SimpleDateFormat
 
     private val viewModel: MarsFragmentViewModel by lazy {
         ViewModelProvider(this).get(MarsFragmentViewModel::class.java)
@@ -50,7 +62,17 @@ class MarsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sendData()
+        sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
+        sdf.timeZone = TimeZone.getTimeZone(NASA_TIME_ZONE)
+        val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+        cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_MARS - marsDayToPhoto)
+        val itemDate: String = sdf.format(cal.time)
+        dateMarsImage.text = getString(R.string.itemImageDate, itemDate)
+
+        sendData(cal)
+
+        buttonPrev.setOnClickListener { switchImage(-1) }
+        buttonNext.setOnClickListener { switchImage(1) }
 
         imageViewMars.setOnClickListener {
             isExpanded = !isExpanded
@@ -68,7 +90,19 @@ class MarsFragment : Fragment() {
             imageViewMars.scaleType =
                 if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
         }
+
         setFAB()
+    }
+
+    private fun setFAB() {
+        setInitialState()
+        fabMars.setOnClickListener {
+            if (isExpanded) {
+                collapseFab()
+            } else {
+                expandFAB()
+            }
+        }
     }
 
     private fun setInitialState() {
@@ -85,7 +119,7 @@ class MarsFragment : Fragment() {
         }
     }
 
-    private fun nextImage(direction: Int) {
+    private fun switchImage(direction: Int) {
         if (itemImage + direction < serverResponseData.photos.size && itemImage + direction >= 0) {
             itemImage += direction
         }
@@ -94,6 +128,94 @@ class MarsFragment : Fragment() {
         dateMarsImage.text =
             getString(R.string.itemImageDate, serverResponseData.photos[itemImage].earth_date)
         imageViewMars.load(serverResponseData.photos[itemImage].img_src)
+        imageViewMars.contentDescription = serverResponseData.photos[itemImage].img_src
+    }
+
+    private fun galleryAddPic(imagePath: String?, context: Context) {
+        imagePath?.let { path ->
+            val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+            val f = File(path)
+            val contentUri: Uri = Uri.fromFile(f)
+            mediaScanIntent.data = contentUri
+            context.sendBroadcast(mediaScanIntent)
+        }
+    }
+
+    private fun saveImage(
+        image: Bitmap,
+        dateImage: String,
+        context: Context,
+        planetName: String,
+        itemImage: Int,
+    ): String? {
+        var savedImagePath: String? = null
+        val imageFileName = "Image_from_${planetName}_${dateImage}_$itemImage.jpg"
+        val storageDir = context.cacheDir
+
+        var success = true
+        if (!storageDir.exists()) {
+            success = storageDir.mkdirs()
+        }
+        if (success) {
+            val imageFile = File(storageDir, imageFileName)
+            imageFile.createNewFile()
+            savedImagePath = imageFile.absolutePath
+            try {
+                val fOut: OutputStream = FileOutputStream(imageFile)
+                image.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
+                fOut.flush()
+                fOut.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            galleryAddPic(savedImagePath, context)
+        }
+        return savedImagePath
+    }
+
+    private fun shareImage(
+        imageFileName: String,
+        context: Context,
+        dateImage: String,
+        planetName: String,
+    ) {
+        var imagePath: String?
+
+        CoroutineScope(Dispatchers.IO).launch {
+            imagePath = saveImage(
+                Glide.with(context)
+                    .asBitmap()
+                    .load(imageFileName)
+                    .placeholder(android.R.drawable.progress_indeterminate_horizontal)
+                    .error(android.R.drawable.stat_notify_error)
+                    .submit()
+                    .get(),
+                dateImage,
+                context,
+                planetName,
+                itemImage
+            )
+
+            val share = Intent(Intent.ACTION_SEND)
+            share.type = "image/*"
+
+            imagePath?.let {
+                val f = File(it)
+
+                val imageUri = FileProvider.getUriForFile(
+                    context,
+                    BuildConfig.APPLICATION_ID + ".provider",
+                    f
+                )
+
+                share.putExtra(
+                    Intent.EXTRA_STREAM,
+                    imageUri
+                )
+                startActivity(Intent.createChooser(share, "Share Image"))
+            }
+        }
     }
 
     private fun expandFAB() {
@@ -109,9 +231,7 @@ class MarsFragment : Fragment() {
                 override fun onAnimationEnd(animation: Animator) {
                     option_two_container.isClickable = true
                     option_two_container.setOnClickListener {
-                        if (serverResponseData.photos.isNotEmpty()) {
-                            nextImage(-1)
-                        }
+                        toast("Функционал не реализован")
                     }
                 }
             })
@@ -122,9 +242,17 @@ class MarsFragment : Fragment() {
                 override fun onAnimationEnd(animation: Animator) {
                     option_one_container.isClickable = true
                     option_one_container.setOnClickListener {
-                        if (serverResponseData.photos.isNotEmpty()) {
-                            nextImage(1)
-                        }
+                        val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+                        cal.add(
+                            Calendar.DAY_OF_YEAR,
+                            SIGNAL_ARRIVAL_TIME_FROM_MARS - marsDayToPhoto
+                        )
+                        shareImage(
+                            imageViewMars.contentDescription.toString(),
+                            requireContext(),
+                            sdf.format(cal.time),
+                            "Mars"
+                        )
                     }
                 }
             })
@@ -171,26 +299,8 @@ class MarsFragment : Fragment() {
             })
     }
 
-    private fun setFAB() {
-        setInitialState()
-        fab.setOnClickListener {
-            if (isExpanded) {
-                collapseFab()
-            } else {
-                expandFAB()
-            }
-        }
-    }
-
-    private fun sendData() {
-        val sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
-        sdf.timeZone = TimeZone.getTimeZone(NASA_TIME_ZONE)
-        val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
-
-        cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_MARS - earthDayToPhoto)
-
-        val itemDate: String = sdf.format(cal.time)
-
+    private fun sendData(curDate: Calendar) {
+        val itemDate: String = sdf.format(curDate.time)
         val roversName = resources.getStringArray(R.array.rovers_name)
         val roversDateStart = resources.getStringArray(R.array.rovers_date_start)
         val roversDateEnd = resources.getStringArray(R.array.rovers_date_end)
@@ -218,11 +328,22 @@ class MarsFragment : Fragment() {
                         (itemImage + 1),
                         serverResponseData.photos.size
                     )
-                    dateMarsImage.text = getString(R.string.itemImageDate, serverResponseData.photos.first().earth_date)
+                    dateMarsImage.text = getString(
+                        R.string.itemImageDate,
+                        serverResponseData.photos.first().earth_date
+                    )
                     imageViewMars.load(serverResponseData.photos.first().img_src)
+                    imageViewMars.contentDescription = serverResponseData.photos.first().img_src
                 } else {
-                    earthDayToPhoto++
-                    sendData()
+                    var cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+                    cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_MARS - marsDayToPhoto)
+                    marsDayToPhoto++
+                    cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+                    cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_MARS - marsDayToPhoto)
+                    val itemDate: String = sdf.format(cal.time)
+                    dateMarsImage.text = getString(R.string.tryText, itemDate)
+
+                    sendData(cal)
                 }
             }
             is AppState.Loading -> {

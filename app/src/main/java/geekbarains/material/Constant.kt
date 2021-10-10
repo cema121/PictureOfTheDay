@@ -15,7 +15,7 @@ object Constant {
     const val EPIC_IMAGE_URL_DEFAULT_YEAR: String = "2021"
     const val EPIC_IMAGE_URL_DEFAULT_MONTH: String = "09"
     const val EPIC_IMAGE_URL_DEFAULT_DAY: String = "01"
-    const val SIGNAL_ARRIVAL_TIME_FROM_MARS : Int = -3
-    const val SIGNAL_ARRIVAL_TIME_FROM_EARTH : Int = -1
+    const val SIGNAL_ARRIVAL_TIME_FROM_MARS : Int = 0
+    const val SIGNAL_ARRIVAL_TIME_FROM_EARTH : Int = 0
     const val NASA_TIME_ZONE: String = "America/Los_Angeles"
 }

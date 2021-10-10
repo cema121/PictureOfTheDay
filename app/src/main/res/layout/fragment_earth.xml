@@ -12,8 +12,9 @@
 
         <ImageView
             android:id="@+id/imageViewEarth"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/bg_earth" />
@@ -37,6 +38,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/countEarthImage"
             tools:text="Дата фото:" />
+
+        <Button
+            android:id="@+id/buttonPrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonPrev"
+            app:layout_constraintEnd_toStartOf="@+id/buttonNext"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateEarthImage" />
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonNext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/buttonPrev"
+            app:layout_constraintTop_toBottomOf="@+id/dateEarthImage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -71,6 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
+        android:background="@android:color/white"
         android:clickable="false"
         tools:background="@android:color/transparent" />
 
@@ -92,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="5dp"
-                android:text="@string/next"
+                android:text="@string/share"
                 android:textColor="?attr/colorSecondary"
                 android:textStyle="bold" />
 
@@ -100,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_next" />
+                app:srcCompat="@drawable/ic_share" />
         </LinearLayout>
 
         <LinearLayout
@@ -117,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="5dp"
-                android:text="@string/prev"
+                android:text="@string/button"
                 android:textColor="?attr/colorSecondary"
                 android:textStyle="bold" />
 
@@ -129,7 +149,7 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fabEarth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
@@ -145,6 +165,6 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:elevation="10dp"
-            app:srcCompat="@drawable/ic_baseline_switch_left_24" />
+            app:srcCompat="@drawable/ic_share" />
     </FrameLayout>
 </FrameLayout>
