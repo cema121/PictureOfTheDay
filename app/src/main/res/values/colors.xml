@@ -4,7 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="color_gray">#66000000</color>
-    <color name="background">#B500BCD4</color>
     <color name="moon_dark">#3F3F3F</color>
     <color name="moon_light">#777777</color>
     <color name="moon">#9B9B9B</color>
@@ -16,4 +15,19 @@
     <color name="moon_second">#868686</color>
     <color name="moon_second_variant">#81868686</color>
     <color name="black">#000000</color>
+    <color name="colorAccent40Alfa">#66D81B60</color>
+    <color name="colorSecondaryLight">#0000FF</color>
+    <color name="color_red">#FF0000</color>
+    <color name="LightSalmon">#FFA07A</color>
+    <color name="color_green_light">#9AF196</color>
+    <color name="color_blue">#0000FF</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_black">#000000</color>
+    <color name="background">#FAFAFA</color>
+    <color name="gradient_start">#FF0000</color>
+    <color name="gradient_end">#0000FF</color>
+    <color name="color_yellow">#FFFF00</color>
+    <color name="moon_bg">#A5A5A5</color>
+    <color name="Mars">#DB8E89</color>
+    <color name="color_gray_light">#c3c3c3</color>
 </resources>

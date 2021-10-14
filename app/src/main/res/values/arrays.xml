@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rovers_name">
+        <item>opportunity</item>
+        <item>spirit</item>
+        <item>curiosity </item>
+        <item>perseverance</item>
+    </string-array>
+
+    <string-array name="rovers_date_start">
+        <item>"2004/01/25"</item>
+        <item>"2004/01/04"</item>
+        <item>"2011/11/26"</item>
+        <item>"2021/02/18"</item>
+    </string-array>
+
+    <string-array name="rovers_date_end">
+        <item>"2018/06/10"</item>
+        <item>"2010/03/22"</item>
+        <item>"4444/12/31"</item>
+        <item>"4444/12/31"</item>
+    </string-array>
+
+    <string-array name="camera_rover_0">
+        <item>PANCAM</item>
+    </string-array>
+
+    <string-array name="camera_rover_1">
+        <item>FHAZ</item>
+        <item>RHAZ</item>
+        <item>NAVCAM</item>
+        <item>PANCAM</item>
+    </string-array>
+
+    <string-array name="camera_rover_2">
+        <item>FHAZ</item>
+        <item>RHAZ</item>
+        <item>MAST</item>
+        <item>CHEMCAM</item>
+        <item>MAHLI</item>
+        <item>NAVCAM</item>
+    </string-array>
+
+    <string-array name="camera_rover_3">
+        <item>NAVCAM_LEFT</item>
+        <item>NAVCAM_RIGHT</item>
+        <item>MCZ_RIGHT</item>
+        <item>MCZ_LEFT</item>
+        <item>FRONT_HAZCAM_LEFT_A</item>
+        <item>FRONT_HAZCAM_RIGHT_A</item>
+        <item>SKYCAM</item>
+        <item>SUPERCAM_RMI</item>
+    </string-array>
+</resources>

@@ -1,45 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.settings.SettingsFragment">
+    android:background="#FFFFFF"
+    android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_settings"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/theme" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/image_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_layout"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMars"
+            style="@style/ChipChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_small_XX"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:text="@string/selection_theme"
-            android:textAlignment="center"
-            android:textSize="25sp" />
+            android:text="@string/Mars" />
 
-        <RadioGroup
-            android:id="@+id/theme_radio_group"
-            android:layout_width="match_parent"
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipEarth"
+            style="@style/ChipChoice"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="@string/Earth" />
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/moon_theme_radio_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/moon_theme" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMoon"
+            style="@style/ChipChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/Moon" />
+    </com.google.android.material.chip.ChipGroup>
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/mars_theme_radio_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mars_theme" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/default_theme_radio_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/default_theme" />
-        </RadioGroup>
-
-    </LinearLayout>
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/play_pause_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/play_pause_circle"
+        android:backgroundTint="@color/colorAccent"
+        android:checked="true"
+        android:contentDescription="@null"
+        android:thumb="@null" />
+</LinearLayout>

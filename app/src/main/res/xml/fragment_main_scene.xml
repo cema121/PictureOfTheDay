@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/tools">
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint android:id="@+id/wiki_button" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint android:id="@id/wiki_button" />
+    </ConstraintSet>
+
+    <Transition
+        motion:constraintSetEnd="@layout/fragment_main"
+        motion:constraintSetStart="@layout/fragment_main_start"
+        motion:duration="1000" />
+
+    <OnClick motion:targetId="@id/wiki_button" />
+</MotionScene>
